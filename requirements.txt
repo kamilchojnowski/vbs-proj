@@ -1,0 +1,15 @@
+boto3
+fastapi
+fastparquet
+gunicorn
+keras
+numpy
+pandas
+pyarrow
+pydantic
+pypyr
+python-dotenv
+python-multipart
+tensorflow
+uvicorn
+
