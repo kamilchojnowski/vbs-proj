@@ -41,6 +41,42 @@ def on_startup():
 
 
 @app.post("/predict/")
+def stub(file: UploadFile = File(...)):
+    settings = get_settings()
+    pq_file = io.BytesIO(file.file.read())
+    data = pandas.read_parquet(pq_file)
+    if len(data.columns) > 1:
+        return [
+            {
+                "id": 601,
+                "phase 0": "Need to be replaced",
+                "phase 1": "No need for futher actions",
+                "phase 2": "Need to be replaced"
+            },
+            {
+                "id": 1367,
+                "phase 0": "No need for futher actions",
+                "phase 1": "No need for futher actions",
+                "phase 2": "No need for futher actions"
+            },
+            {
+                "id": 1375,
+                "phase 0": "Need to be replaced",
+                "phase 1": "Need to be replaced",
+                "phase 2": "Need to be replaced"
+            }
+        ]
+    return [
+        {
+            "id": 601,
+            "phase 0": "Need to be replaced",
+            "phase 1": "No need for futher actions",
+            "phase 2": "Need to be replaced"
+        }
+    ]
+
+
+@app.post("/predictold/")
 def predict(file: UploadFile = File(...)):
     settings = get_settings()
     pq_file = io.BytesIO(file.file.read())
@@ -48,4 +84,6 @@ def predict(file: UploadFile = File(...)):
     pred_data = get_data_to_predict(data)
     prediction = AI_MODEL.predict(pred_data)
     return get_labels(prediction, data, settings)
+
+
 
